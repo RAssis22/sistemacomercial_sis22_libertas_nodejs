@@ -26,8 +26,8 @@ async function connect(){
  exports.put = async (req, res, next) => {
     let id = req.params.id;
     const conn = await connect();
-    const sql = "UPDATE vendedor " +
-                " SET nome = ?, cpf = ?, logradouro = ?, numero = ?, bairro = ?, cep = ?, telefone = ?, per_comissao = ?, idcidade = ? " +
+    const sql = " UPDATE vendedor " +
+                " SET nome = ?, cpf = ?, logradouro = ?, numero = ?, bairro = ?, cep = ?, telefone = ?, perc_comissao = ?, idcidade = ? " +
                 " WHERE idvendedor = ?";
     const values = [req.body.nome, req.body.cpf, 
         req.body.logradouro, req.body.numero, req.body.bairro, req.body.cep, 
@@ -39,7 +39,7 @@ async function connect(){
   exports.delete = async (req, res, next) => {
     let id = req.params.id;
     const conn = await connect();
-    const sql = "DELETE FROM vendedor " +
+    const sql = " DELETE FROM vendedor " +
                 " WHERE idvendedor = ?";
     const values = [id];
     await conn.query(sql, values);
@@ -51,7 +51,7 @@ async function connect(){
      const pesquisa = req.query.pesquisa;
      const sql = "SELECT * FROM vendedor " +
                  " WHERE nome like ?" +
-                 " ORDER BY nome";
+                 " ORDER BY idvendedor";
      const values = ["%" + pesquisa + "%"];
      const [rows] = await conn.query(sql, values);
      res.status(200).send(rows);
